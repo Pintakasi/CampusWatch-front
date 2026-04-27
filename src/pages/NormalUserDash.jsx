@@ -1,15 +1,5 @@
 import { useState } from "react";
-import {
-  LogOut,
-  Camera,
-  Paperclip,
-  MapPin,
-  Building,
-  Clock,
-  User,
-  FileText,
-  Users,
-} from "lucide-react";
+import { Camera, MapPin, Building, Clock, User, FileText } from "lucide-react";
 import Logout from "../components/Logout";
 import api from "../config/axios";
 
@@ -19,8 +9,10 @@ const NormalUserDash = () => {
   const [searchResults, setSearchResults] = useState([]);
   const [isSearching, setIsSearching] = useState(false);
   const [showDropdown, setShowDropdown] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState(null); // 'success' | 'error' | null
 
-  const [accusedUserObjectsList, setaccusedUserObjectsList] = useState([]);
+  const [accusedUserObjectsList, setAccusedUserObjectsList] = useState([]);
 
   const [formData, setFormData] = useState({
     category: "",
@@ -55,11 +47,9 @@ const NormalUserDash = () => {
         transformed[key] = value;
       }
     }
-
     return transformed;
   };
 
-  // Search for accused persons (dummy API)
   const searchUsers = async (query) => {
     if (!query || query.length < 2) {
       setSearchResults([]);
@@ -70,27 +60,8 @@ const NormalUserDash = () => {
     setShowDropdown(true);
 
     try {
-      // TODO: Replace with actual API endpoint
-      // const response = await api.get(`/users/search?q=${query}`);
-      // setSearchResults(response.data);
-
       const response = await api.get(`/users/find?query=${query}`);
       setSearchResults(response.data);
-
-      // Dummy data for now - replace with actual API call
-      // const dummyUsers = [
-      //   { id: 1, name: "Juan Dela Cruz", role: "Student", department: "CCS" },
-      //   {
-      //     id: 2,
-      //     name: "Maria Santos",
-      //     role: "Faculty",
-      //     department: "Engineering",
-      //   },
-      //   { id: 3, name: "Pedro Reyes", role: "Student", department: "Business" },
-      //   { id: 4, name: "Ana Lim", role: "Staff", department: "Registrar" },
-      //   { id: 5, name: "Jose Ramirez", role: "Faculty", department: "CCS" },
-      //   { id: 6, name: "Lisa Chen", role: "Student", department: "Nursing" },
-      // ].filter((user) => user.name.toLowerCase().includes(query.toLowerCase()));
     } catch (error) {
       console.error("Error searching users:", error);
       setSearchResults([]);
@@ -104,13 +75,21 @@ const NormalUserDash = () => {
     const query = e.target.value;
     setSearchQuery(query);
 
+    // Clear previous timeout
+    if (searchTimeout) {
+      clearTimeout(searchTimeout);
+    }
+
     // Debounce search
     const timeoutId = setTimeout(() => {
       searchUsers(query);
     }, 300);
 
-    return () => clearTimeout(timeoutId);
+    setSearchTimeout(timeoutId);
   };
+
+  // Store timeout ID for cleanup
+  const [searchTimeout, setSearchTimeout] = useState(null);
 
   // Add selected user to accusedIds
   const addAccused = (user) => {
@@ -120,7 +99,7 @@ const NormalUserDash = () => {
         accusedIds: [...prev.accusedIds, user.id],
       }));
 
-      setaccusedUserObjectsList((prev) => [...prev, user]);
+      setAccusedUserObjectsList((prev) => [...prev, user]);
     }
     setSearchQuery("");
     setSearchResults([]);
@@ -134,12 +113,10 @@ const NormalUserDash = () => {
       accusedIds: prev.accusedIds.filter((id) => id !== userId),
     }));
 
-    setaccusedUserObjectsList((prev) =>
+    setAccusedUserObjectsList((prev) =>
       prev.filter((user) => user.id !== userId),
     );
   };
-
-  // Get user details by ID (for display)
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -159,14 +136,53 @@ const NormalUserDash = () => {
   //Error handling soon
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setIsSubmitting(true);
+    setSubmitStatus(null);
 
     const cleanedData = convertEmptyStringsToNull(formData);
 
     try {
-      const response = await api.post("/complaints/create", cleanedData);
-    } catch (e) {
-      console.error(e);
-      console.log(e);
+      const submitData = new FormData();
+
+      submitData.append(
+        "data",
+        new Blob([JSON.stringify(cleanedData)], {
+          type: "application/json",
+        }),
+      );
+
+      if (formData.evidence) {
+        submitData.append("evidence", formData.evidence);
+      }
+
+      await api.post("/complaints/create", submitData);
+
+      // Success feedback
+      setSubmitStatus("success");
+
+      // Reset form
+      setFormData({
+        category: "",
+        locationScope: "",
+        building: "",
+        floor: "",
+        room: "",
+        nearestBuilding: "",
+        incidentDate: "",
+        incidentTime: "",
+        accusedIds: [],
+        description: "",
+        witnesses: "",
+        evidence: null,
+        declaration: false,
+      });
+      setAccusedUserObjectsList([]);
+      setActiveTab("track");
+    } catch (error) {
+      console.error("Error submitting complaint:", error);
+      setSubmitStatus("error");
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -606,12 +622,39 @@ const NormalUserDash = () => {
                 {/* Submit Button */}
                 <button
                   type="submit"
-                  disabled={!formData.declaration}
+                  disabled={!formData.declaration || isSubmitting}
                   className="w-full py-5 text-xl bg-[#7D5A50] hover:bg-[#6B4A40] disabled:bg-gray-300 disabled:cursor-not-allowed text-white font-semibold rounded-lg transition-colors flex items-center justify-center gap-3"
                 >
-                  <FileText size={24} />
-                  Review & Submit Complaint
+                  {isSubmitting ? (
+                    <>
+                      <div className="animate-spin h-6 w-6 border-3 border-white border-t-transparent rounded-full"></div>
+                      Submitting...
+                    </>
+                  ) : (
+                    <>
+                      <FileText size={24} />
+                      Review & Submit Complaint
+                    </>
+                  )}
                 </button>
+
+                {/* Status Message */}
+                {submitStatus === "success" && (
+                  <div className="mt-4 p-4 bg-green-100 border border-green-400 rounded-lg">
+                    <p className="text-green-700 font-medium text-center">
+                      ✓ Complaint submitted successfully! You can track it in
+                      the "Track Report" tab.
+                    </p>
+                  </div>
+                )}
+
+                {submitStatus === "error" && (
+                  <div className="mt-4 p-4 bg-red-100 border border-red-400 rounded-lg">
+                    <p className="text-red-700 font-medium text-center">
+                      ✗ Failed to submit complaint. Please try again later.
+                    </p>
+                  </div>
+                )}
               </>
             )}
 
