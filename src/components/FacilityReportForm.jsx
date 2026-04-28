@@ -1,6 +1,4 @@
-import React from "react";
-
-function FacilityReportForm() {
+const FacilityReportForm = () => {
   return (
     <div className="text-center py-16">
       <h3 className="text-2xl font-semibold text-gray-700 mb-3">

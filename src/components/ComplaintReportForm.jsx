@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { Camera, MapPin, Clock, User, FileText } from "lucide-react";
-import Logout from "../components/Logout";
 import api from "../config/axios";
 
 const ComplaintReportForm = () => {
