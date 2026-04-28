@@ -17,9 +17,12 @@ const Login = () => {
 
     try {
       const response = await api.post("/auth/login", { email, password });
-      console.log(response.data.userId);
+
       localStorage.setItem("role", response.data.role);
       localStorage.setItem("userId", response.data.userId);
+      localStorage.setItem("firstName", response.data.firstName);
+      localStorage.setItem("department", response.data.department);
+
       navigate("/dashboard");
     } catch (err) {
       console.error(err);
@@ -42,7 +45,7 @@ const Login = () => {
           />
 
           <h1 className="text-2xl md:text-3xl font-bold text-[#4a0404] mb-2">
-            Still thinking...
+            CampusWatch
           </h1>
           <p className="text-gray-500 text-sm">
             Your One-Stop Hub for Campus Reports

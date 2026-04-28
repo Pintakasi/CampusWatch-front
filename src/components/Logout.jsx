@@ -13,6 +13,8 @@ const Logout = ({ variant = "inline" }) => {
     } finally {
       localStorage.removeItem("role");
       localStorage.removeItem("userId");
+      localStorage.removeItem("department");
+      localStorage.removeItem("firstName");
       navigate("/login");
     }
   };
