@@ -1,6 +1,5 @@
 import { useState } from "react";
 import Logout from "../components/Logout";
-import api from "../config/axios";
 import FacilityReportForm from "../components/FacilityReportForm";
 import TrackReport from "../components/TrackReport";
 import ComplaintReportForm from "../components/ComplaintReportForm";

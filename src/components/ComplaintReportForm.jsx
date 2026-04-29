@@ -175,6 +175,7 @@ const ComplaintReportForm = () => {
         evidence: null,
         declaration: false,
       });
+      setKnowsAccused(null)
       setAccusedUserObjectsList([]);
     } catch (error) {
       console.error("Error submitting complaint:", error);
@@ -217,12 +218,12 @@ const ComplaintReportForm = () => {
         >
           <option value="">Select a category</option>
           <optgroup label="Student Behavior">
-            <option value="harassment">Harassment</option>
-            <option value="substance-abuse">Substance Abuse</option>
+            <option value="B_HARASSMENT">Harassment</option>
+            <option value="B_SUBSTANCE_ABUSE">Substance Abuse</option>
           </optgroup>
           <optgroup label="Property">
-            <option value="vandalism">Vandalism</option>
-            <option value="theft">Theft</option>
+            <option value="B_VANDALISM">Vandalism</option>
+            <option value="B_THEFT">Theft</option>
           </optgroup>
         </select>
       </div>

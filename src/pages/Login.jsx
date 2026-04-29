@@ -16,6 +16,7 @@ const Login = () => {
     setError("");
 
     try {
+      
       const response = await api.post("/auth/login", { email, password });
 
       localStorage.setItem("role", response.data.role);
@@ -24,6 +25,7 @@ const Login = () => {
       localStorage.setItem("department", response.data.department);
 
       navigate("/dashboard");
+      
     } catch (err) {
       console.error(err);
       setError("Invalid credentials");
@@ -31,6 +33,8 @@ const Login = () => {
       setLoading(false);
     }
   };
+
+
 
   return (
     <div className="min-h-screen bg-[linear-gradient(135deg,#1a0a0a_0%,#3d0a0a_50%,#1a1a0a_100%)] flex items-center justify-center p-4">
@@ -45,7 +49,7 @@ const Login = () => {
           />
 
           <h1 className="text-2xl md:text-3xl font-bold text-[#4a0404] mb-2">
-            CampusWatch
+            .....
           </h1>
           <p className="text-gray-500 text-sm">
             Your One-Stop Hub for Campus Reports
