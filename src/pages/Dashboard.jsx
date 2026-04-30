@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import api from '../config/axios';
 
-import NormalUserDash from './NOrmalUserDash';
+import NormalUserDash from './NormalUserDash';
 
 function Dashboard() {
   const [role, setRole] = useState(null);
