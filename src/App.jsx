@@ -13,11 +13,11 @@ const App = () => {
       <Route
         path="/dashboard"
         element={
-          // <ProtectedRoute allowedRoles={['STUDENT','FACULTY','STAFF']}>
-          //   <Dashboard />
-          // </ProtectedRoute>
+          <ProtectedRoute allowedRoles={['STUDENT','FACULTY','STAFF']}>
+            <Dashboard />
+          </ProtectedRoute>
 
-           <NormalUserDash/>
+          //  <NormalUserDash/>
         }
       />
       <Route path="/" element={<Navigate to="/dashboard" />} />
