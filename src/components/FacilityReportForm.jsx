@@ -70,10 +70,9 @@ const FacilityReportForm = () => {
         submitData.append("evidence", formData.evidence);
       }
 
-      // Dummy API endpoint - replace with actual endpoint when available
-      await api.post("/facilities/create", submitData);
-
+      await api.post("/complaints/create", submitData);
       setSubmitStatus("success");
+
       setFormData({
         category: "",
         locationScope: "",
@@ -124,15 +123,9 @@ const FacilityReportForm = () => {
   ];
 
   const categories = [
-    { value: "F_BROKEN", label: "Broken Infrastructure" },
-    { value: "F_ELECTRICAL", label: "Electrical Issue" },
-    { value: "F_PLUMBING", label: "Plumbing Issue" },
-    { value: "F_HVAC", label: "HVAC/AC Issue" },
-    { value: "F_LIGHTING", label: "Lighting Issue" },
-    { value: "F_FURNITURE", label: "Furniture Damage" },
-    { value: "F_PAVEMENT", label: "Pavement/Road Damage" },
-    { value: "F_SECURITY", label: "Security Feature Issue" },
-    { value: "F_OTHER", label: "Other" },
+    { value: "PLUMBING", label: "Plumbing" },
+    { value: "ELECTRICAL", label: "Electrical Issue" },
+
   ];
 
   const severities = [

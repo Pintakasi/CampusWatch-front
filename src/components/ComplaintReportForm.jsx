@@ -229,29 +229,14 @@ const ComplaintReportForm = () => {
           >
             <option value="">Select a category</option>
             <optgroup label="Student Behavior">
-              <option value="B_HARASSMENT">Harassment</option>
-              <option value="B_SUBSTANCE_ABUSE">Substance Abuse</option>
+              <option value="HARASSMENT">Harassment</option>
+              <option value="BULLYING">Bullying</option>
             </optgroup>
             <optgroup label="Property">
-              <option value="B_VANDALISM">Vandalism</option>
-              <option value="B_THEFT">Theft</option>
+              <option value="VANDALISM">Vandalism</option>
+              <option value="THEFT">Theft</option>
             </optgroup>
           </select>
-          <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="20"
-              height="20"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="#6b7280"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <polyline points="6 9 12 15 18 9"></polyline>
-            </svg>
-          </div>
         </div>
       </div>
 
@@ -278,21 +263,6 @@ const ComplaintReportForm = () => {
               <option value="INSIDE">Inside a building</option>
               <option value="OUTSIDE">Outside</option>
             </select>
-            <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="20"
-                height="20"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="#6b7280"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <polyline points="6 9 12 15 18 9"></polyline>
-              </svg>
-            </div>
           </div>
         </div>
 
@@ -318,21 +288,6 @@ const ComplaintReportForm = () => {
                     </option>
                   ))}
                 </select>
-                <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="20"
-                    height="20"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="#6b7280"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  >
-                    <polyline points="6 9 12 15 18 9"></polyline>
-                  </svg>
-                </div>
               </div>
             </div>
             <div>
@@ -354,21 +309,7 @@ const ComplaintReportForm = () => {
                     </option>
                   ))}
                 </select>
-                <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="20"
-                    height="20"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="#6b7280"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  >
-                    <polyline points="6 9 12 15 18 9"></polyline>
-                  </svg>
-                </div>
+
               </div>
             </div>
             <div>
