@@ -175,7 +175,7 @@ const ComplaintReportForm = () => {
         evidence: null,
         declaration: false,
       });
-      setKnowsAccused(null)
+      setKnowsAccused(null);
       setAccusedUserObjectsList([]);
     } catch (error) {
       console.error("Error submitting complaint:", error);
@@ -209,23 +209,40 @@ const ComplaintReportForm = () => {
           <FileText size={24} className="text-[#4A1D1D]" />
           Report Category <span className="text-red-500">*</span>
         </h2>
-        <select
-          name="category"
-          value={formData.category}
-          onChange={handleChange}
-          className="w-full px-5 py-4 text-lg border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent"
-          required
-        >
-          <option value="">Select a category</option>
-          <optgroup label="Student Behavior">
-            <option value="B_HARASSMENT">Harassment</option>
-            <option value="B_SUBSTANCE_ABUSE">Substance Abuse</option>
-          </optgroup>
-          <optgroup label="Property">
-            <option value="B_VANDALISM">Vandalism</option>
-            <option value="B_THEFT">Theft</option>
-          </optgroup>
-        </select>
+        <div className="relative">
+          <select
+            name="category"
+            value={formData.category}
+            onChange={handleChange}
+            className="w-full px-5 py-4 text-lg border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent appearance-none bg-white pr-12"
+            required
+          >
+            <option value="">Select a category</option>
+            <optgroup label="Student Behavior">
+              <option value="B_HARASSMENT">Harassment</option>
+              <option value="B_SUBSTANCE_ABUSE">Substance Abuse</option>
+            </optgroup>
+            <optgroup label="Property">
+              <option value="B_VANDALISM">Vandalism</option>
+              <option value="B_THEFT">Theft</option>
+            </optgroup>
+          </select>
+          <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="#6b7280"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <polyline points="6 9 12 15 18 9"></polyline>
+            </svg>
+          </div>
+        </div>
       </div>
 
       {/* Location Details Section */}
@@ -239,17 +256,34 @@ const ComplaintReportForm = () => {
           <label className="block text-base font-medium text-gray-700 mb-3">
             Where did it happen? <span className="text-red-500">*</span>
           </label>
-          <select
-            name="locationScope"
-            value={formData.locationScope}
-            onChange={handleChange}
-            className="w-full px-5 py-4 text-lg border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent"
-            required
-          >
-            <option value="">Select location type</option>
-            <option value="inside">Inside a building</option>
-            <option value="outside">Outside</option>
-          </select>
+          <div className="relative">
+            <select
+              name="locationScope"
+              value={formData.locationScope}
+              onChange={handleChange}
+              className="w-full px-5 py-4 text-lg border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent appearance-none bg-white pr-12"
+              required
+            >
+              <option value="">Select location type</option>
+              <option value="inside">Inside a building</option>
+              <option value="outside">Outside</option>
+            </select>
+            <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="#6b7280"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <polyline points="6 9 12 15 18 9"></polyline>
+              </svg>
+            </div>
+          </div>
         </div>
 
         {/* Conditional: Inside a building */}
@@ -259,39 +293,73 @@ const ComplaintReportForm = () => {
               <label className="block text-base font-medium text-gray-700 mb-3">
                 Building <span className="text-red-500">*</span>
               </label>
-              <select
-                name="building"
-                value={formData.building}
-                onChange={handleChange}
-                className="w-full px-5 py-4 text-lg border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent"
-                required
-              >
-                <option value="">Select building</option>
-                {buildings.map((b) => (
-                  <option key={b.value} value={b.value}>
-                    {b.label}
-                  </option>
-                ))}
-              </select>
+              <div className="relative">
+                <select
+                  name="building"
+                  value={formData.building}
+                  onChange={handleChange}
+                  className="w-full px-5 py-4 text-lg border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent appearance-none bg-white pr-12"
+                  required
+                >
+                  <option value="">Select building</option>
+                  {buildings.map((b) => (
+                    <option key={b.value} value={b.value}>
+                      {b.label}
+                    </option>
+                  ))}
+                </select>
+                <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="20"
+                    height="20"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="#6b7280"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
+                    <polyline points="6 9 12 15 18 9"></polyline>
+                  </svg>
+                </div>
+              </div>
             </div>
             <div>
               <label className="block text-base font-medium text-gray-700 mb-3">
                 Floor <span className="text-red-500">*</span>
               </label>
-              <select
-                name="floor"
-                value={formData.floor}
-                onChange={handleChange}
-                className="w-full px-5 py-4 text-lg border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent"
-                required
-              >
-                <option value="">Select floor</option>
-                {floors.map((f) => (
-                  <option key={f.value} value={f.value}>
-                    {f.label}
-                  </option>
-                ))}
-              </select>
+              <div className="relative">
+                <select
+                  name="floor"
+                  value={formData.floor}
+                  onChange={handleChange}
+                  className="w-full px-5 py-4 text-lg border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent appearance-none bg-white pr-12"
+                  required
+                >
+                  <option value="">Select floor</option>
+                  {floors.map((f) => (
+                    <option key={f.value} value={f.value}>
+                      {f.label}
+                    </option>
+                  ))}
+                </select>
+                <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="20"
+                    height="20"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="#6b7280"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
+                    <polyline points="6 9 12 15 18 9"></polyline>
+                  </svg>
+                </div>
+              </div>
             </div>
             <div>
               <label className="block text-base font-medium text-gray-700 mb-3">
@@ -315,20 +383,37 @@ const ComplaintReportForm = () => {
             <label className="block text-base font-medium text-gray-700 mb-3">
               Nearest Building <span className="text-red-500">*</span>
             </label>
-            <select
-              name="nearestBuilding"
-              value={formData.nearestBuilding}
-              onChange={handleChange}
-              className="w-full px-5 py-4 text-lg border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent"
-              required
-            >
-              <option value="">Select nearest building</option>
-              {buildings.map((b) => (
-                <option key={b.value} value={b.value}>
-                  {b.label}
-                </option>
-              ))}
-            </select>
+            <div className="relative">
+              <select
+                name="nearestBuilding"
+                value={formData.nearestBuilding}
+                onChange={handleChange}
+                className="w-full px-5 py-4 text-lg border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent appearance-none bg-white pr-12"
+                required
+              >
+                <option value="">Select nearest building</option>
+                {buildings.map((b) => (
+                  <option key={b.value} value={b.value}>
+                    {b.label}
+                  </option>
+                ))}
+              </select>
+              <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="#6b7280"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <polyline points="6 9 12 15 18 9"></polyline>
+                </svg>
+              </div>
+            </div>
           </div>
         )}
       </div>
@@ -412,8 +497,7 @@ const ComplaintReportForm = () => {
           {knowsAccused === true && (
             <div className="relative">
               <label className="block text-base font-medium text-gray-700 mb-3">
-                Accused Persons{" "}
-                <span className="text-red-500">*</span>
+                Accused Persons <span className="text-red-500">*</span>
               </label>
 
               {/* Search Input */}

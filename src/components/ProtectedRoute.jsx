@@ -15,14 +15,11 @@ function ProtectedRoute({ children, allowedRoles }) {
 
 
   if (loading) return <div>Checking permissions...</div>;
-  
   if (!role) return <Navigate to="/login" />;
-  
+
   if (allowedRoles && !allowedRoles.includes(role)) {
-    console.log(role);
     return <div>Access Denied</div>;
   }
-  
   return children;
 }
 

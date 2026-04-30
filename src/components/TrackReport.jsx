@@ -1,5 +1,3 @@
-import React from "react";
-
 function TrackReport() {
   return (
     <div className="text-center py-16">
