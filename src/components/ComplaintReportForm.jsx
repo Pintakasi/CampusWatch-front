@@ -17,7 +17,8 @@ const ComplaintReportForm = () => {
     building: "",
     floor: "",
     room: "",
-    nearestBuilding: "",
+    specificLocation: "",
+    zone: "",
 
     incidentDate: "",
     incidentTime: "",
@@ -201,6 +202,15 @@ const ComplaintReportForm = () => {
     { value: "5", label: "5th Floor" },
   ];
 
+    const zones = [
+    { value: "parking", label: "Parking Area" },
+    { value: "quad", label: "Main Quadrangle" },
+    { value: "garden", label: "Garden/Grounds" },
+    { value: "courtyard", label: "Courtyard" },
+    { value: "sports", label: "Sports Field" },
+    { value: "gate", label: "Gate/Entrance" },
+  ];
+
   return (
     <form onSubmit={handleSubmit} className="p-8 lg:p-12">
       {/* Report Category Section */}
@@ -265,8 +275,8 @@ const ComplaintReportForm = () => {
               required
             >
               <option value="">Select location type</option>
-              <option value="inside">Inside a building</option>
-              <option value="outside">Outside</option>
+              <option value="INSIDE">Inside a building</option>
+              <option value="OUTSIDE">Outside</option>
             </select>
             <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none">
               <svg
@@ -287,7 +297,7 @@ const ComplaintReportForm = () => {
         </div>
 
         {/* Conditional: Inside a building */}
-        {formData.locationScope === "inside" && (
+        {formData.locationScope === "INSIDE" && (
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <div>
               <label className="block text-base font-medium text-gray-700 mb-3">
@@ -378,41 +388,39 @@ const ComplaintReportForm = () => {
         )}
 
         {/* Conditional: Outside */}
-        {formData.locationScope === "outside" && (
-          <div>
-            <label className="block text-base font-medium text-gray-700 mb-3">
-              Nearest Building <span className="text-red-500">*</span>
-            </label>
-            <div className="relative">
+        {formData.locationScope === "OUTSIDE" && (
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+              <label className="block text-base font-medium text-gray-700 mb-3">
+                Area/Zone <span className="text-red-500">*</span>
+              </label>
               <select
-                name="nearestBuilding"
-                value={formData.nearestBuilding}
+                name="zone"
+                value={formData.zone}
                 onChange={handleChange}
-                className="w-full px-5 py-4 text-lg border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent appearance-none bg-white pr-12"
+                className="w-full px-5 py-4 text-lg border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent"
                 required
               >
-                <option value="">Select nearest building</option>
-                {buildings.map((b) => (
-                  <option key={b.value} value={b.value}>
-                    {b.label}
+                <option value="">Select area/zone</option>
+                {zones.map((zone) => (
+                  <option key={zone.value} value={zone.value}>
+                    {zone.label}
                   </option>
                 ))}
               </select>
-              <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="20"
-                  height="20"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="#6b7280"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  <polyline points="6 9 12 15 18 9"></polyline>
-                </svg>
-              </div>
+            </div>
+            <div>
+              <label className="block text-base font-medium text-gray-700 mb-3">
+                Specific Location
+              </label>
+              <input
+                type="text"
+                name="specificLocation"
+                value={formData.specificLocation}
+                onChange={handleChange}
+                placeholder="e.g., Near the north entrance"
+                className="w-full px-5 py-4 text-lg border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent"
+              />
             </div>
           </div>
         )}

@@ -11,7 +11,7 @@ const FacilityReportForm = () => {
     building: "",
     floor: "",
     room: "",
-    areaZone: "",
+    zone: "",
     specificLocation: "",
     description: "",
     severity: "",
@@ -80,7 +80,7 @@ const FacilityReportForm = () => {
         building: "",
         floor: "",
         room: "",
-        areaZone: "",
+        zone: "",
         specificLocation: "",
         incidentDate: "",
         incidentTime: "",
@@ -114,7 +114,7 @@ const FacilityReportForm = () => {
     { value: "5", label: "5th Floor" },
   ];
 
-  const areaZones = [
+  const zones = [
     { value: "parking", label: "Parking Area" },
     { value: "quad", label: "Main Quadrangle" },
     { value: "garden", label: "Garden/Grounds" },
@@ -136,10 +136,9 @@ const FacilityReportForm = () => {
   ];
 
   const severities = [
-    { value: "low", label: "Low - Minor inconvenience" },
-    { value: "medium", label: "Medium - Affects daily activities" },
-    { value: "high", label: "High - Safety concern" },
-    { value: "critical", label: "Critical - Immediate attention needed" },
+    { value: "low", label: "Minor" },
+    { value: "medium", label: "Moderate " },
+    { value: "high", label: "Severe" }
   ];
 
   return (
@@ -255,14 +254,14 @@ const FacilityReportForm = () => {
                 Area/Zone <span className="text-red-500">*</span>
               </label>
               <select
-                name="areaZone"
-                value={formData.areaZone}
+                name="zone"
+                value={formData.zone}
                 onChange={handleChange}
                 className="w-full px-5 py-4 text-lg border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent"
                 required
               >
                 <option value="">Select area/zone</option>
-                {areaZones.map((zone) => (
+                {zones.map((zone) => (
                   <option key={zone.value} value={zone.value}>
                     {zone.label}
                   </option>
