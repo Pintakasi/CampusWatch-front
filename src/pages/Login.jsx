@@ -43,7 +43,7 @@ const Login = () => {
         <div className="text-center mb-8">
           {/* Logo Placeholder */}
           <img
-            src="/public/img/IIT-LOGO.png"
+            src="/img/IIT-LOGO.png"
             alt="Logo"
             className="w-24 h-24 mx-auto mb-4 object-contain"
           />
