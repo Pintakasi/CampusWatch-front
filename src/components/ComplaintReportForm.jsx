@@ -58,7 +58,7 @@ const ComplaintReportForm = () => {
     setShowDropdown(true);
 
     try {
-      const response = await api.get(`/users/find?query=${query}`);
+      const response = await api.get(`/users?query=${query}`);
       setSearchResults(response.data);
     } catch (error) {
       console.error("Error searching users:", error);
