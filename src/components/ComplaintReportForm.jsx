@@ -26,7 +26,6 @@ const ComplaintReportForm = () => {
     accusedIds: [],
     accusedDescription: "",
     description: "",
-    witnesses: "",
     evidence: null,
     declaration: false,
   });
@@ -172,7 +171,6 @@ const ComplaintReportForm = () => {
         accusedIds: [],
         accusedDescription: "",
         description: "",
-        witnesses: "",
         evidence: null,
         declaration: false,
       });
@@ -202,7 +200,7 @@ const ComplaintReportForm = () => {
     { value: "5", label: "5th Floor" },
   ];
 
-    const zones = [
+  const zones = [
     { value: "parking", label: "Parking Area" },
     { value: "quad", label: "Main Quadrangle" },
     { value: "garden", label: "Garden/Grounds" },
@@ -309,7 +307,6 @@ const ComplaintReportForm = () => {
                     </option>
                   ))}
                 </select>
-
               </div>
             </div>
             <div>
@@ -414,7 +411,7 @@ const ComplaintReportForm = () => {
           {/* Do you know the accused person's name? */}
           <div>
             <label className="block text-base font-medium text-gray-700 mb-3">
-              Do you know the accused person&apos;s name/s?
+              Do you know the reported person&apos;s name?
             </label>
             <div className="flex gap-4">
               <button
@@ -426,7 +423,7 @@ const ComplaintReportForm = () => {
                     : "border-gray-300 text-gray-600 hover:bg-gray-50"
                 }`}
               >
-                Yes, I know the name
+                Yes
               </button>
               <button
                 type="button"
@@ -437,7 +434,7 @@ const ComplaintReportForm = () => {
                     : "border-gray-300 text-gray-600 hover:bg-gray-50"
                 }`}
               >
-                No, I don&apos;t know the name
+                No
               </button>
             </div>
           </div>
@@ -446,7 +443,8 @@ const ComplaintReportForm = () => {
           {knowsAccused === true && (
             <div className="relative">
               <label className="block text-base font-medium text-gray-700 mb-3">
-                Accused Persons <span className="text-red-500">*</span>
+                Reported person&apos;s name{" "}
+                <span className="text-red-500">*</span>
               </label>
 
               {/* Search Input */}
@@ -543,7 +541,7 @@ const ComplaintReportForm = () => {
           {knowsAccused === false && (
             <div>
               <label className="block text-base font-medium text-gray-700 mb-3">
-                Describe the Accused Person{" "}
+                Describe the reported person{" "}
                 <span className="text-red-500">*</span>
               </label>
               <textarea
@@ -559,7 +557,7 @@ const ComplaintReportForm = () => {
 
           <div>
             <label className="block text-base font-medium text-gray-700 mb-3">
-              Description of Incident <span className="text-red-500">*</span>
+              Description of Incident
             </label>
             <textarea
               name="description"
@@ -568,21 +566,6 @@ const ComplaintReportForm = () => {
               placeholder="Please provide details about the incident including: what happened, when it occurred, who was involved, and any other relevant information."
               rows={6}
               className="w-full px-5 py-4 text-lg border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent resize-none"
-              required
-            />
-          </div>
-
-          <div>
-            <label className="block text-base font-medium text-gray-700 mb-3">
-              Witnesses
-            </label>
-            <input
-              type="text"
-              name="witnesses"
-              value={formData.witnesses}
-              onChange={handleChange}
-              placeholder="Names separated by commas"
-              className="w-full px-5 py-4 text-lg border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent"
             />
           </div>
         </div>
@@ -672,7 +655,7 @@ const ComplaintReportForm = () => {
 
       {submitStatus === "error" && (
         <div className="mt-4 p-4 bg-red-100 border border-red-400 rounded-lg">
-          <p className="text-red-700 font-medium text-center">
+          <p className="text-red-800 font-medium text-center">
             ✗ Failed to submit complaint. Please try again later.
           </p>
         </div>
